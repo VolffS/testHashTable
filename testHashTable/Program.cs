@@ -27,8 +27,10 @@ namespace testHashTable
             HashTable.Add(18,"Четырнадцать");
             HashTable.Add(19,"Четырнадцать");
 
-            Console.WriteLine(HashTable.Sheart(12));
-            Console.WriteLine(HashTable.Sheart(13));
+            Console.WriteLine(HashTable.Find(12));
+            Console.WriteLine(HashTable.Find(13));
+            Console.WriteLine(HashTable.Find(22));
+
 
             Console.WriteLine(HashTable.Remove(4));
             Console.WriteLine(HashTable.Remove(22));

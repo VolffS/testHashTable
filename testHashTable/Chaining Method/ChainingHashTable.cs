@@ -42,37 +42,47 @@ namespace testHashTable.Chaining_Method
                 items[key].Nodes.Add(item);
             }
         }
-        public Tvalue Sheart(Tkey tkey)
+        public Tvalue Find(Tkey tkey)
         {
             var key = HashFuctions(tkey);
-            int index = 0;
-            while (true)
-            {                
-                if (items[key].Nodes[index].key.Equals(tkey))
-                {
-                    return items[key].Nodes[index].value;                    
-                }
-                else
-                {
-                    index++;
-                }
+            var index = Search(tkey);
+            if (index >= 0)
+            {
+                return items[key].Nodes[index].value;
+            }
+            else
+            {
+                return default;
             }
         }
-        public bool Remove(Tkey tkey)
+
+        private int Search (Tkey tkey)
         {
-            var key = HashFuctions(tkey);             
-            if (items[key].Nodes.Count != 0)
-            {
-                for (int i = 0; i < items[key].Nodes.Count; i++)
+            var key = HashFuctions(tkey);
+            int index;
+            for ( index=0; index < items[key].Nodes.Count; index++)
+            {            
+                if (items[key].Nodes[index].key.Equals(tkey))
                 {
-                    if (items[key].Nodes[i].key.Equals(tkey))
-                    {                        
-                        items[key].Nodes.RemoveAt(i);
-                        return true;
-                    }
+                    return index;
                 }
             }
-            return false;
+            return -1;
+        }
+
+        public bool Remove(Tkey tkey)
+        {
+            var key = HashFuctions(tkey);
+            var index = Search(tkey);
+             if (index >= 0)
+             {
+                items[key].Nodes.RemoveAt(Search(tkey));
+                return true;
+             }           
+             else
+             {
+                return false;
+             }            
         }
         private int HashFuctions(Tkey tkey)
         {
