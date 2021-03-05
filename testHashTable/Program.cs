@@ -29,11 +29,13 @@ namespace testHashTable
 
             Console.WriteLine(HashTable.Find(12));
             Console.WriteLine(HashTable.Find(13));
+            Console.WriteLine(HashTable.Find(15));
             Console.WriteLine(HashTable.Find(22));
 
 
             Console.WriteLine(HashTable.Remove(4));
             Console.WriteLine(HashTable.Remove(22));
+            Console.WriteLine(HashTable.Remove(12));
         }
     }
 }
