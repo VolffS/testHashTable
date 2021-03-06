@@ -7,10 +7,13 @@ namespace testHashTable.Chaining_Method
     class ChainingHashTable<Tkey,Tvalue>
     {
         ChainingItems<Tkey, Tvalue>[] items;
-
+        private int lineSize = 6;
+        private double maxPostSize = 0.75;
+        private int size;
         public ChainingHashTable(int size)
         {
             items = new ChainingItems<Tkey,Tvalue>[size];
+            this.size = size;
             for (int i = 0; i < items.Length; i++)
             {
                 items[i] = new ChainingItems<Tkey,Tvalue>();
@@ -83,6 +86,10 @@ namespace testHashTable.Chaining_Method
              {
                 return false;
              }            
+        }
+        private void Resize()
+        {
+
         }
         private int HashFuctions(Tkey tkey)
         {
