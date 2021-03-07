@@ -7,21 +7,30 @@ namespace testHashTable.Chaining_Method
     class ChainingHashTable<Tkey,Tvalue>
     {
         ChainingItems<Tkey, Tvalue>[] items;
-        private int lineSize = 6;
+        private int maxlineSize = 6;
         private double maxPostSize = 0.75;
         private int size;
+        private int noNullSize=0;
         public ChainingHashTable(int size)
-        {
-            items = new ChainingItems<Tkey,Tvalue>[size];
+        {            
             this.size = size;
+            Initialization(size);
+        }
+        private void Initialization(int size)
+        {
+            items = new ChainingItems<Tkey, Tvalue>[size];
             for (int i = 0; i < items.Length; i++)
             {
-                items[i] = new ChainingItems<Tkey,Tvalue>();
+                items[i] = new ChainingItems<Tkey, Tvalue>();
             }
         }
         public void Add(Tkey tkey, Tvalue tvalue)
         {
-            var key = HashFuctions(tkey);            
+            var key = HashFuctions(tkey); 
+            if ( items[key].Nodes.Count==maxlineSize || ( noNullSize+1> size * maxPostSize ) )
+            {
+                Resize();
+            }
             if (items[key].Nodes.Count != 0)
             {
                 for (int i = 0; i < items[key].Nodes.Count; i++)
@@ -43,6 +52,7 @@ namespace testHashTable.Chaining_Method
                 item.value = tvalue;
                 item.key = tkey;
                 items[key].Nodes.Add(item);
+                noNullSize++;
             }
         }
         public Tvalue Find(Tkey tkey)
@@ -80,6 +90,10 @@ namespace testHashTable.Chaining_Method
              if (index >= 0)
              {
                 items[key].Nodes.RemoveAt(Search(tkey));
+                if (items[key].Nodes.Count == 0)
+                {
+                    noNullSize--;
+                }
                 return true;
              }           
              else
@@ -89,7 +103,20 @@ namespace testHashTable.Chaining_Method
         }
         private void Resize()
         {
-
+            noNullSize = 0;
+            size *= 2;
+            var temp = this.items;
+            Initialization(size);
+            foreach (var item in temp)
+            {
+                if (item.Nodes.Count!=0)
+                {
+                    for (int i = 0; i < item.Nodes.Count; i++)
+                    {
+                       Add(item.Nodes[i].key, item.Nodes[i].value);
+                    }
+                } 
+            }
         }
         private int HashFuctions(Tkey tkey)
         {

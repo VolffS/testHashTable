@@ -18,6 +18,10 @@ namespace testHashTable
             HashTableint.Add(10,0);
             HashTableint.Add(11,0);
             HashTableint.Add(12,1);
+            HashTableint.Add(13,13);
+            HashTableint.Add(14,14);
+            HashTableint.Add(15,15);
+            HashTableint.Add(16,16);
 
             Console.WriteLine(HashTableint.Find(4));
             Console.WriteLine(HashTableint.Find(5));
