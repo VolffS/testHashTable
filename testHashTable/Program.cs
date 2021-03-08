@@ -11,9 +11,11 @@ namespace testHashTable
             var HashTableInt = new ChainingHashTablInt();
             var HashTableString = new ChainingHashTablString();
             var OpenHashTableInt = new OpenAdddressingHashTableInt();
+            var OpenHashTableString = new OpenAdddressingHashTableString();
             //HashTableInt.Realize();
             //HashTableString.Realize();
-            OpenHashTableInt.Realize();
+            //OpenHashTableInt.Realize();
+            OpenHashTableString.Realize();
             Console.WriteLine("Готово");
 
         }
@@ -23,22 +25,22 @@ namespace testHashTable
         public void Realize()
         {
             var HashTableint = new ChainingHashTable<int, int>(8);
-            HashTableint.Add(1,0);
-            HashTableint.Add(2,0);
-            HashTableint.Add(3,0);
-            HashTableint.Add(4,0);
-            HashTableint.Add(5,1);
-            HashTableint.Add(6,2);
-            HashTableint.Add(7,3);
-            HashTableint.Add(8,4);
-            HashTableint.Add(9,5);
-            HashTableint.Add(10,0);
-            HashTableint.Add(11,0);
-            HashTableint.Add(12,1);
-            HashTableint.Add(13,13);
-            HashTableint.Add(14,14);
-            HashTableint.Add(15,15);
-            HashTableint.Add(16,16);
+            HashTableint.Add(1, 0);
+            HashTableint.Add(2, 0);
+            HashTableint.Add(3, 0);
+            HashTableint.Add(4, 0);
+            HashTableint.Add(5, 1);
+            HashTableint.Add(6, 2);
+            HashTableint.Add(7, 3);
+            HashTableint.Add(8, 4);
+            HashTableint.Add(9, 5);
+            HashTableint.Add(10, 0);
+            HashTableint.Add(11, 0);
+            HashTableint.Add(12, 1);
+            HashTableint.Add(13, 13);
+            HashTableint.Add(14, 14);
+            HashTableint.Add(15, 15);
+            HashTableint.Add(16, 16);
             Console.WriteLine("Проводиться поиск");
             Console.WriteLine(HashTableint.Find(4));
             Console.WriteLine(HashTableint.Find(5));
@@ -49,7 +51,7 @@ namespace testHashTable
             Console.WriteLine(HashTableint.Remove(4));
             Console.WriteLine(HashTableint.Remove(12));
             Console.WriteLine(HashTableint.Remove(22));
-         }
+        }
     }
     class ChainingHashTablString
     {
@@ -111,6 +113,18 @@ namespace testHashTable
             Console.WriteLine(HashTable.Remove(4));
             Console.WriteLine(HashTable.Remove(12));
             Console.WriteLine(HashTable.Remove(22));
+        }
+    }
+    class OpenAdddressingHashTableString
+    {
+        public void Realize()
+        {
+            var HashTable = new OpenAddressingHashTable<string, int>(8);
+
+            for (int i = 0; i < 99; i++)
+            {
+                HashTable.Add(i.ToString(), i);
+            }
         }
     }
 }

@@ -167,7 +167,19 @@ namespace testHashTable.HashTable
         }
         private int HashFunction(Tkey tkey)
         {
-            return tkey.GetHashCode() % items.Length;
+            if (tkey == null)
+            {
+                return -1;
+            }
+            else
+            {
+                var key = tkey.GetHashCode() % items.Length;
+                if (key < 0)
+                {
+                    key = 0;
+                }
+                return key;
+            }
         } 
     }
 }
