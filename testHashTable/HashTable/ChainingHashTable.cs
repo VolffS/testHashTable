@@ -7,7 +7,6 @@ namespace testHashTable.Chaining_Method
     class ChainingHashTable<Tkey,Tvalue>
     {
         ChainingItems<Tkey, Tvalue>[] items;
-        private int maxlineSize = 6;
         private double maxPostSize = 0.75;
         private int size;
         private int noNullSize=0;
@@ -27,7 +26,7 @@ namespace testHashTable.Chaining_Method
         public void Add(Tkey tkey, Tvalue tvalue)
         {
             var key = HashFuctions(tkey); 
-            if ( items[key].Nodes.Count==maxlineSize || ( noNullSize+1> size * maxPostSize ) )
+            if ( noNullSize+1> size * maxPostSize )
             {
                 Resize();
             }
@@ -120,7 +119,8 @@ namespace testHashTable.Chaining_Method
         }
         private int HashFuctions(Tkey tkey)
         {
-            return tkey.GetHashCode() % items.Length;
+            //return tkey.GetHashCode() % items.Length;
+            return tkey.ToString().Length% items.Length;
         }
     }
 }

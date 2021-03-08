@@ -6,10 +6,17 @@ namespace testHashTable.Chaining_Method
 {
     class OpenItems<Tkey,Tvalue>
     {
-        public Tvalue openItem;
+        public Tvalue value;
         public Tkey key { get; set; }
-        public int q=0;
-        public bool delete;
+        /// <summary>
+        /// Показатель до следующего элемента по этой хэшфункции
+        /// </summary>
+        public int qount=0;
+        /// <summary>
+        ///  Показатель до следующего элемента, если элемент занят числом попавшим сюда по методу очереди
+        /// </summary>
+        public int realQount = 0;
+        public bool delete = true;
         
     }
 
