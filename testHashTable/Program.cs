@@ -14,7 +14,7 @@ namespace testHashTable
             var OpenHashTableString = new OpenAdddressingHashTableString();
             //HashTableInt.Realize();
             //HashTableString.Realize();
-            OpenHashTableInt.Realize();
+            //OpenHashTableInt.Realize();
             OpenHashTableString.Realize();
             Console.WriteLine("Готово");
 
@@ -120,14 +120,23 @@ namespace testHashTable
         public void Realize()
         {
             var HashTable = new OpenAddressingHashTable<string, int>(8);
-
-            for (int i = 0; i < 99; i++)
+            int Qount = 9999;
+            for (int i = 0; i < Qount; i++)
             {
                 HashTable.Add(i.ToString(), i);
             }
-            for (int i = 0; i < 99; i++)
+            for (int i = 0; i < Qount; i++)
             {
-                Console.WriteLine( HashTable.Find(i.ToString()));
+                if (HashTable.Find(i.ToString()) == i)
+                {
+                    Console.WriteLine($"{HashTable.Find(i.ToString())} Bitcoin");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"{HashTable.Find(i.ToString())} Bitcoin Хоба Ошибка");
+                    Console.ResetColor();
+                }
             }
         }
     }

@@ -39,9 +39,9 @@ namespace testHashTable.HashTable
             }
             if (!index.Equals(HashFunction(items[index].key)) && items[index].realQount == 0)
             {
-                for (int qount = 0; qount < items.Length; qount++, index++)
+                for (int qount = 0, backIndex= index; qount < items.Length; qount++, index++, backIndex--)
                 {
-                    if (index != size)
+                    if (index < size)
                     {
                         if (items[index].qount == 0 && items[index].delete == true)
                         {
@@ -54,14 +54,14 @@ namespace testHashTable.HashTable
                             return;
                         }
                     }                    
-                    if ((index - qount) != 0)
+                    if (backIndex > 0)
                     {
-                        if (items[index - qount].qount == 0 && items[index - qount].delete == true)
+                        if (items[backIndex].qount == 0 && items[backIndex].delete == true)
                         {
-                            items[index - qount].delete = false;
-                            items[index - qount].key = tkey;
-                            items[index - qount].value = tvalue;
-                            items[index + qount].realQount = 0- qount;
+                            items[backIndex].delete = false;
+                            items[backIndex].key = tkey;
+                            items[backIndex].value = tvalue;
+                            items[backIndex + qount].realQount = 0- qount;
                             noNullSize++;
                             allElements++;
                             return;
@@ -85,9 +85,9 @@ namespace testHashTable.HashTable
                     index += items[index].qount;
                 }
                 else
-                    for (int qount = 0; qount < items.Length; qount++, index++)
+                    for (int qount = 0, backIndex=index; qount < items.Length; qount++, index++, backIndex--)
                     {
-                        if(index !> size)
+                        if(index < size)
                         {
                             if (items[index].qount == 0 && items[index].delete == true)
                             {
@@ -100,14 +100,14 @@ namespace testHashTable.HashTable
                                 return;
                             }
                         }
-                        if ((index - qount) !< 0)
+                        if (backIndex > 0)
                         {
-                            if (items[index - qount].qount == 0 && items[index - qount].delete == true)
+                            if (items[backIndex].qount == 0 && items[backIndex].delete == true)
                             {
-                                items[index - qount].delete = false;
-                                items[index - qount].key = tkey;
-                                items[index - qount].value = tvalue;
-                                items[index + qount].qount = 0 - qount;
+                                items[backIndex].delete = false;
+                                items[backIndex].key = tkey;
+                                items[backIndex].value = tvalue;
+                                items[backIndex + qount].qount = 0 - qount;
                                 noNullSize++;
                                 allElements++;
                                 return;
@@ -145,10 +145,12 @@ namespace testHashTable.HashTable
             return false;
         }
         private int Search(Tkey tkey)
-        { 
+        {
+            int thisQount, BackItems = HashFunction(tkey);
             int index = HashFunction(tkey);
             if (index != HashFunction(items[index].key))
             {
+                thisQount = items[index].realQount;
                 index += items[index].realQount;
             }
             while (true)          
@@ -163,6 +165,8 @@ namespace testHashTable.HashTable
                 }
                 else
                 {
+                    thisQount = items[index].qount;
+                    BackItems = index;
                     index += items[index].qount;
                 }                
             }
