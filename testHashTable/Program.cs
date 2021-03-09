@@ -14,7 +14,7 @@ namespace testHashTable
             var OpenHashTableString = new OpenAdddressingHashTableString();
             //HashTableInt.Realize();
             //HashTableString.Realize();
-            //OpenHashTableInt.Realize();
+            OpenHashTableInt.Realize();
             OpenHashTableString.Realize();
             Console.WriteLine("Готово");
 
@@ -124,6 +124,10 @@ namespace testHashTable
             for (int i = 0; i < 99; i++)
             {
                 HashTable.Add(i.ToString(), i);
+            }
+            for (int i = 0; i < 99; i++)
+            {
+                Console.WriteLine( HashTable.Find(i.ToString()));
             }
         }
     }

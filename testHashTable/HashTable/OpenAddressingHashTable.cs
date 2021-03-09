@@ -39,18 +39,35 @@ namespace testHashTable.HashTable
             }
             if (!index.Equals(HashFunction(items[index].key)) && items[index].realQount == 0)
             {
-                for (int qount = 0; qount < items.Length; qount++)
-                {                    
-                    if (items[index].qount == 0 && items[index].delete == true)
+                for (int qount = 0; qount < items.Length; qount++, index++)
+                {
+                    if (index != size)
                     {
-                        items[index].delete = false;
-                        items[index].key = tkey;
-                        items[index].value = tvalue;
-                        items[index - qount].realQount = qount;
-                        noNullSize++;
-                        allElements++;
-                        return;
+                        if (items[index].qount == 0 && items[index].delete == true)
+                        {
+                            items[index].delete = false;
+                            items[index].key = tkey;
+                            items[index].value = tvalue;
+                            items[index - qount].realQount = qount;
+                            noNullSize++;
+                            allElements++;
+                            return;
+                        }
+                    }                    
+                    if ((index - qount) != 0)
+                    {
+                        if (items[index - qount].qount == 0 && items[index - qount].delete == true)
+                        {
+                            items[index - qount].delete = false;
+                            items[index - qount].key = tkey;
+                            items[index - qount].value = tvalue;
+                            items[index + qount].realQount = 0- qount;
+                            noNullSize++;
+                            allElements++;
+                            return;
+                        }
                     }
+                    
                 }
             } if (!index.Equals(HashFunction(items[index].key)))
             {
@@ -68,17 +85,33 @@ namespace testHashTable.HashTable
                     index += items[index].qount;
                 }
                 else
-                    for (int qount = 0; qount < items.Length; qount++)
+                    for (int qount = 0; qount < items.Length; qount++, index++)
                     {
-                        if (items[index].qount == 0 && items[index].delete == true)
+                        if(index !> size)
                         {
-                            items[index].delete = false;
-                            items[index].key = tkey;
-                            items[index].value = tvalue;
-                            items[index - qount].qount = qount;
-                            noNullSize++;
-                            allElements++;
-                            return;
+                            if (items[index].qount == 0 && items[index].delete == true)
+                            {
+                                items[index].delete = false;
+                                items[index].key = tkey;
+                                items[index].value = tvalue;
+                                items[index - qount].qount = qount;
+                                noNullSize++;
+                                allElements++;
+                                return;
+                            }
+                        }
+                        if ((index - qount) !< 0)
+                        {
+                            if (items[index - qount].qount == 0 && items[index - qount].delete == true)
+                            {
+                                items[index - qount].delete = false;
+                                items[index - qount].key = tkey;
+                                items[index - qount].value = tvalue;
+                                items[index + qount].qount = 0 - qount;
+                                noNullSize++;
+                                allElements++;
+                                return;
+                            }
                         }
                     }             
             }         
@@ -120,7 +153,7 @@ namespace testHashTable.HashTable
             }
             while (true)          
             {                
-                if (items[index].key.Equals(tkey) )
+                if (HashFunction(items[index].key) != -1 && items[index].key.Equals(tkey) )
                 { 
                         return index ;                    
                 }
